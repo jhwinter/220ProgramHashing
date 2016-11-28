@@ -1,40 +1,28 @@
 /**
- * @file
- *  Hash table with open adressing.
- *
- * @author Pedro Furtado
- */
- 
-public class HashTableOpenAddressing {
+* 
+* 
+*
+*
+**/
+import java.util.HashTable;
+import java.util.Enumeration;
+
+public class OpenHashing {
 
 	/**
-	 * Properties of hash table.
+	 * Size of the array
 	 */
 	private int max = 20;
-
-	private HashTableNode[] vector = new HashTableNode[max];
-
-	/**
-	 * Element of hash table.
-	 */
-	class HashTableNode {
-
-		public int key;
-
-		HashTableNode(int key) {
-
-			this.key = key;
-		}
-	}
+	
+	HashTable hTable = new HashTable();
 
 	/**
-	 * Constructor method.
+	 * Constructor method that 
 	 */
-	HashTableOpenAddressing() {
-
+	OpenHashing() {
 		for (int i = 0; i < max; i++) {
 			
-			this.vector[i] = null;
+			this.vector[i] = 0;
 		}
 	}
 
