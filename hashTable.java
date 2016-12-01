@@ -60,7 +60,7 @@ public class hashTable {
 	 */
 	public void loadHashTable(){
 		int answer = 0;
-		for(int i = 0; i < table.length ;i++){
+		for(int i = 0; i < inputTable.length ;i++){
 			//mods the key by 10
 			answer = inputTable[i] % 10;
 			if(table[answer]== -1){
@@ -104,7 +104,11 @@ public class hashTable {
 					table[i] = -1;
 				}
 	}
-	public void add(int key){
+	/**
+	 * 
+	 * @param key value to be searched
+	 */
+	public void addValue(int key){
 		int answer = 0;
 		answer = key % 10;
 		if(table[answer] != 0){
@@ -117,6 +121,18 @@ public class hashTable {
 			table[answer]= key;
 		}
 		printTable();
+	}
+	public void search(int key){
+		int answer = 0;
+		answer = key % 10;
+		if(table[answer] != key){
+			while(table[answer]!= key){
+				answer +=1;
+			}
+		}
+		
+		printTable();
+		System.out.println("The value was found in position: " + answer);
 	}
 		
 	}

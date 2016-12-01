@@ -14,10 +14,16 @@ public class entryPoint {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		hashTable hash1 = new hashTable();
-		int[] inputTable= {1,2,3,8,9,47,7,35,5, 100, 21, 99, 4505};
+		int[] inputTable= {1,2,3,8,0,47,7,35,5, 100, 21, 99, 4505};
 		hash1.loadInputTable(inputTable);
-		hash1.add(70);
+		hash1.addValue(70);
+		/*hash1.search(70);
+		hash1.addValue(777);
+		hash1.search(777);
+		hash1.addValue(0);
+		hash1.search(0);
 		
+		*/
 		
 	}
 	
