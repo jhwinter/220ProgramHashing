@@ -104,6 +104,20 @@ public class hashTable {
 					table[i] = -1;
 				}
 	}
+	public void add(int key){
+		int answer = 0;
+		answer = key % 10;
+		if(table[answer] != 0){
+			while(table[answer]!= 0){
+				answer +=1;
+			}
+			table[answer]= key;
+		}
+		else{
+			table[answer]= key;
+		}
+		printTable();
+	}
 		
 	}
 	
