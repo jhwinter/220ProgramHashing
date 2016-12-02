@@ -34,7 +34,7 @@ public class HashTest {
 				// int[] inputTable= {1,2,3,8,9,47,7,35,5, 100, 21, 99, 4505};
 				// hash1.loadInputTable(inputTable);
 				//print(hash1);
-				hash1.printTable();
+				print(hash1);
 			} else if (response.equalsIgnoreCase("add")) {
 				add(hash1, in);
 			} else if (response.equalsIgnoreCase("search")) {
@@ -50,9 +50,10 @@ public class HashTest {
 
 	}
 
-	/*public static void print(HashTable hash1) {
+	public static void print(HashTable hash1) {
+		System.out.println();
 		hash1.printTable();
-	}*/
+	}
 
 	/**
 	*
@@ -64,10 +65,10 @@ public class HashTest {
 		input = in.nextInt();
 		int index = 0;
 		int keyAdd = 0;
-		if (input > 0) {
+		if (input > -1) {
 			keyAdd = hash1.add(input, index);
 			if (keyAdd == input) {
-				System.out.println("Success! " + keyAdd + " was successfully added to the hash table.");
+				System.out.println("\nSuccess! " + keyAdd + " was successfully added to the hash table.");
 				hash1.printTable();
 			}
 		} else {
@@ -85,10 +86,10 @@ public class HashTest {
 		input = in.nextInt();
 		int index = 0;
 		int keyFoundHash = 0;
-		if (input > 0) {
+		if (input > -1) {
 			keyFoundHash = hash1.search(input, index);
 			if (keyFoundHash != -1) {
-				System.out.println("Success! " + input + " was found in the hash table.");
+				System.out.println("\nSuccess! " + input + " was found in the hash table.");
 				hash1.printTable();
 			} else {
 				System.out.println(input + " was not found in the hash table.");
@@ -108,10 +109,10 @@ public class HashTest {
 		input = in.nextInt();
 		int index = 0;
 		int keyRemove = 0;
-		if (input > 0) {
+		if (input > -1) {
 			keyRemove = hash1.delete(input, index);
 			if (keyRemove == input) {
-				System.out.println("Success! " + keyRemove + " was removed from the hash table.");
+				System.out.println("\nSuccess! " + keyRemove + " was removed from the hash table.");
 				hash1.printTable();
 			} else {
 				System.out.println(input + " was not found in the hash table.");

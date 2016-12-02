@@ -28,7 +28,7 @@ public class HashTable {
 	/**
 	* This is the value we are modding by
 	*/
-	private final static int MOD = 10; 
+	private final static int MOD = 25; 
 
 	/*
 	 * default constructor
@@ -216,19 +216,26 @@ public class HashTable {
 	public int searchReplace(int keyDelete, int index) {
 		int origHashCode = -1;
 		int searchHashCode = -1;
+		int keyReplace = -1;
 		//int index1 = 0;
-		int searchIndex = 0;
-		origHashCode = getHashCode(keyDelete, index);
-		searchHashCode = getHashCode(this.table[origHashCode + 1], searchIndex);
+		//int searchIndex = 0;
+		origHashCode = getHashCode(keyDelete, 0);
+		searchHashCode = getHashCode(this.table[origHashCode+1], 0);
 
 		if (searchHashCode != origHashCode) {
 			return -1;
 		} else {
-			while(searchHashCode == origHashCode) {
-			searchHashCode = getHashCode(this.table[searchHashCode + 1], searchIndex);
+			index++;
+			for (int i = index; i < this.table.length && searchHashCode == origHashCode; i++) {
+				searchHashCode = getHashCode(this.table[index], 0);
 			}
-			this.table[searchHashCode] = -1;
-			return searchHashCode;
+			if (searchHashCode != -1) {
+				keyReplace = this.table[searchHashCode];
+				this.table[searchHashCode] = -1;
+				return keyReplace;
+			} else {
+				return -1;
+			}
 		}
 
 		/*for (int i = index; i < this.table.length; i++) {
@@ -243,6 +250,9 @@ public class HashTable {
 				} else {
 
 				}
+				while(searchHashCode == origHashCode) {
+				searchHashCode = getHashCode(this.table[searchHashCode + 1], 0);
+			}
 			}
 		} */
 
@@ -266,6 +276,7 @@ public class HashTable {
 		int hashCode = -1;
 		int keyDelete = -1;
 		int keyReplace = -1;
+		int aKeyReplace = -1;
 		hashCode = search(key, index);
 
 		/*
@@ -281,19 +292,27 @@ public class HashTable {
 		} else {
 			keyDelete = this.table[hashCode];
 			this.table[hashCode] = -1;
-			//keyReplace = this.table[searchReplace(keyDelete, index)];
-			//if (keyReplace != -1) {
-				//this.table[hashCode] = keyReplace;
-				//return keyDelete;
-			//} else {
+			/*aKeyReplace = searchReplace(keyDelete, index);
+			if (aKeyReplace != -1) {
+				keyReplace = aKeyReplace;
+				this.table[hashCode] = keyReplace;
 				return keyDelete;
-			//}
+			} else {
+				return keyDelete;
+			}*/
+			return keyDelete;
 		}
 	}
 
 	/**
+	* This method sends the key and index to another 
+	* that then calculuates the hash code
 	* 
-	* 
+	* @param key
+	* 		
+	* @param index
+	* 		the index for the 
+	* @return returns the hashCode
 	*/
 	public int getHashCode(int key, int index) {
 		int hashCode = -1;
@@ -307,7 +326,34 @@ public class HashTable {
 	*/
 	public int linearProbing(int key, int index) {
 		int hashCode = -1;
-		hashCode = (key + index) % MOD;
+		int key1 = key % MOD;
+		hashCode = (key1 + index) % MOD;
+		return hashCode;
+	}
+
+	/**
+	*
+	*
+	*/
+	public int quadraticProbing(int key, int index) {
+		int hashCode = -1;
+		int c1 = 0;
+		int c2 = 1;
+		int key1 = key % MOD;
+		hashCode = (key1 + c1*(index) + c2*(index * index)) % MOD;
+		return hashCode;
+	}
+
+	/**
+	*
+	*
+	*/
+	public int doubleHashing(int key, int index) {
+		int hashCode = -1;
+		final int MOD2 = 7;
+		int key1 = key % MOD;
+		int key2 = (1 + (key % MOD2)) % MOD2;
+		hashCode = (key1 + index*key2) % MOD;
 		return hashCode;
 	}
 }
