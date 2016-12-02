@@ -4,8 +4,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /**
- * the hash table class that defines the methods and functions 
- * of the has table
+ * Tests the HashTable class
  * @author Andrew Giorgio, John Riley, Jonathan Winters
  * @date 11/27/16
  * @version 1.0
