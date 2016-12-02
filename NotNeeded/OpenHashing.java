@@ -3,29 +3,79 @@
 * 
 *
 *
-**/
-import java.util.HashTable;
-import java.util.Enumeration;
+*/
 
-public class OpenHashing {
+public class ClosedHashing {
 
 	/**
 	 * Size of the array
 	 */
-	private int max = 20;
+	private int max = 5;
+	private hashTableNode[] hashTable = new hashTableNode[max];
 	
-	HashTable hTable = new HashTable();
-
 	/**
-	 * Constructor method that 
+	 * Constructor method that sets every
+	 * cell in the array equal to null
 	 */
-	OpenHashing() {
+	ClosedHashing() {
 		for (int i = 0; i < max; i++) {
-			
-			this.vector[i] = 0;
+			this.hashTable[i] = null;
 		}
 	}
-
+	
+	/**
+	* This method loops through the hashTableNode array 
+	* comparing each 
+	* 
+	* 
+	* 
+	*/
+	public void search() {
+		
+	}
+	/**
+	* 
+	* 
+	* 
+	*
+	*/
+	public void insert() {}
+	
+	
+	/**
+	* 
+	* 
+	*
+	*/
+	public void delete() {}
+	
+	
+	/**
+	* 
+	* 
+	* 
+	*/
+	public void doubleHashing() {}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Add method.
 	 *
