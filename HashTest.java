@@ -16,7 +16,7 @@ public class HashTest {
 	/**
 	 * Entry point of the program
 	 * @param args
-	 * 	Command line arguments
+	 * 		Command line arguments
 	 * 
 	*/
 	public static void main(String[] args) {
@@ -26,8 +26,8 @@ public class HashTest {
 		Scanner in = new Scanner(System.in);
 		HashTable hash1 = new HashTable();
 
-		while (!response.equalsIgnoreCase("q")) {
-			System.out.println("\nPlease choose an option: 'print', 'add', 'search', 'remove'");
+		while (!response.equalsIgnoreCase("quit")) {
+			System.out.println("\nPlease choose an option: 'print', 'add', 'search', 'remove', 'quit'");
 			response = in.next();
 			if (response.equalsIgnoreCase("print")) {
 				// int[] inputTable= {1,2,3,8,9,47,7,35,5, 100, 21, 99, 4505};
@@ -40,22 +40,29 @@ public class HashTest {
 				search(hash1, in);
 			} else if (response.equalsIgnoreCase("remove")) {
 				remove(hash1, in);
-			}
-			else {
+			} else if (response.equalsIgnoreCase("quit")) {
+				System.out.println("Thanks for using the program. GoodBye! :)");
+				in.close();
+			} else {
 				System.out.println("Sorry, you have entered invalid input. Please try again.");
 			}
 		}
-		System.out.println("Thanks for using the program, GoodBye :)");
-
+		//System.out.println("Thanks for using the program, GoodBye :)");
+		in.close();
 	}
 
+	/**
+	* prints the contents of the hash table
+	*
+	*/
 	public static void print(HashTable hash1) {
 		System.out.println();
 		hash1.printTable();
 	}
 
 	/**
-	*
+	* sends the value to be added to the hash 
+	* table to the Hash Table object 
 	*
 	*/
 	public static void add(HashTable hash1, Scanner in) {
@@ -69,6 +76,8 @@ public class HashTest {
 			if (keyAdd == input) {
 				System.out.println("\nSuccess! " + keyAdd + " was successfully added to the hash table.");
 				hash1.printTable();
+			} else {
+				System.out.println("\nWe're sorry, it seems as though the hash table is currently full. Please remove an element and try again.");
 			}
 		} else {
 			System.out.println("Sorry, you have entered invalid input. Please try again.");
@@ -76,7 +85,8 @@ public class HashTest {
 	}
 
 	/**
-	*
+	* sends the value to be searched to the HashTable object and 
+	* prints whether or not the integer was found in the hash table
 	*
 	*/
 	public static void search(HashTable hash1, Scanner in) {
@@ -99,8 +109,9 @@ public class HashTest {
 	}
 	
 	/**
-	*
-	*
+	* sends the value to removed to the HashTable object
+	* and prints whether or not the value was successfully removed
+	* 
 	*/
 	public static void remove(HashTable hash1, Scanner in) {
 		int input = 0;

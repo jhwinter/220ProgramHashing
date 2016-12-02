@@ -2,8 +2,8 @@
 //import java.util.ArrayList;
 import java.util.Arrays;
 /**
- * the hash table class that defines the methods and functions 
- * of the has table
+ * The hash table class that defines the methods and functions 
+ * of the hash table
  * @author Andrew Giorgio, John Riley, Jonathan Winters
  * @date 11/27/16
  * @version 1.0
@@ -15,7 +15,7 @@ public class HashTable {
 	/**
 	 * the size of the array
 	 */
-	private int size = 25; 
+	private int size = 5; 
 	/**
 	 * the finished hash table
 	 */
@@ -28,7 +28,7 @@ public class HashTable {
 	/**
 	* This is the value we are modding by
 	*/
-	private final static int MOD = 25; 
+	private final static int MOD = 5; 
 
 	/*
 	 * default constructor
@@ -68,19 +68,15 @@ public class HashTable {
 	 * hashes the users inputs into an array
 	 */
 	public void loadHashTable(){
-		//int answer = 0;
 		int hashCode = -1;
 		int index = 0;
 		for(int i = 0; i < inputTable.length ;i++){
-			//mods the key by 10
-			//hashCode = inputTable[i] % 10;
 			hashCode = getHashCode(inputTable[i], index);
 			if(this.table[hashCode]== -1){
 				// this means that the first spot checked was open
 				this.table[hashCode]= inputTable[i];
 			}else{
 				while(this.table[hashCode]!= -1){
-					//answer = answer+1;
 					index++;
 					hashCode = getHashCode(hashCode, index);
 				}
@@ -106,7 +102,6 @@ public class HashTable {
 	public void printInputTable(){
 		System.out.println("Input Table");
 		for(int i = 0; i < inputTable.length; i++){
-			
 			System.out.println(i +". " + inputTable[i]);
 		}
 	}
@@ -126,16 +121,15 @@ public class HashTable {
 	 * Adds a value to the Hash Table
 	 *
 	 * @param key 
-	 *		value to be searched
+	 *		value to be added to the hash table
 	 * @param index
 	 * 		index for generating a new hash code
+	 * @return returns the key or -1 if there were
+	 * no spots available in the hash table
 	 */
 	public int add(int key, int index){
-		//int answer = 0;
-		//answer = key % 10;
 		int hashCode = -1;
 		hashCode = getHashCode(key, index);
-
 		/*
 		* If this spot in the table does not equal to -1,
 		* continue to generate a new hash code until a spot is found
@@ -151,11 +145,8 @@ public class HashTable {
 			this.table[hashCode] = key;
 			return key;
 		} else {
-			//System.out.println(key + " was successfully added to the hash table.");
 			return -1;
 		}
-		//return -1;
-		//printTable();
 	}
 
 	/**
@@ -167,14 +158,12 @@ public class HashTable {
 	* hash table.
 	*
 	* @param key
-	*		the integer value to be located
+	*		the value to be located
 	* @param index
 	*		index for generating a new hash code
-	* 
+	* @return returns hash code or returns -1 if key was not found
 	*/
 	public int search(int key, int index){
-		//int answer = 0;
-		//answer = key % 10;
 		int hashCode = -1;
 		hashCode = getHashCode(key, index);
 		/*
@@ -190,18 +179,110 @@ public class HashTable {
 			}
 		}
 		if (this.table[hashCode] == key) {
-			//System.out.println("The value was found in position " + hashCode + " in the hash table.");
 			return hashCode;
 		} else {
 			return -1;
 		}
-		//return -1;
-			//System.out.println(key + " does not exist in the hash table.")
-		//printTable();
-		//System.out.println("The value was found in position: " + answer);
 	}
 
 	/**
+	* This method calls the search method to find the key in the hash table,
+	* then it sets that spot in the hash table equal to null. Then, it calls
+	* another method to push everything down in the array.
+	* 
+	* @param key
+	* 		the integer value to be deleted
+	* @param index
+	* 		index for generating a new hash code
+	* @return returns the key to be deleted if found or
+	* returns -1 if the key was not found
+	* 
+	*/
+	public int delete(int key, int index) {
+		int hashCode = -1;
+		int keyDelete = -1;
+		hashCode = search(key, index);
+		if (hashCode == -1) {
+			return -1;
+		} else {
+			keyDelete = this.table[hashCode];
+			this.table[hashCode] = -1;
+			return keyDelete;
+		}
+	}
+
+	/**
+	* This method sends the key and index to another
+	* method that then calculates the hash code.
+	* 
+	* @param key
+	* 		the value to be hashed 
+	* @param index
+	* 		the index used for generating a new hash code 
+	* @return returns the hash code 
+	*/
+	public int getHashCode(int key, int index) {
+		int hashCode = -1;
+		hashCode = linearProbing(key, index);
+		return hashCode;
+	}
+
+	/**
+	* This method produces a hash code using 
+	* linear probing.
+	*
+	* @param key
+	* 		the value to be hashed
+	* @param index
+	* 		index for generating a new hash code
+	* @return returns the hash code
+	*/
+	public int linearProbing(int key, int index) {
+		int hashCode = -1;
+		int key1 = key % MOD;
+		hashCode = (key1 + index) % MOD;
+		return hashCode;
+	}
+
+	/**
+	* This method produces a hash code using 
+	* quadratic probing.
+	*
+	* @param key
+	* 		the value to be hashed
+	* @param index
+	* 		index for generating a new hash code
+	* @return returns the hash code
+	*/
+	public int quadraticProbing(int key, int index) {
+		int hashCode = -1;
+		int c1 = 0;
+		int c2 = 1;
+		int key1 = key % MOD;
+		hashCode = (key1 + c1*(index) + c2*(index * index)) % MOD;
+		return hashCode;
+	}
+
+	/**
+	* This method produces a hash code using 
+	* double hashing.
+	*
+	* @param key
+	* 		the value to be hashed
+	* @param index
+	* 		index for generating a new hash code
+	* @return returns the hash code
+	*/
+	public int doubleHashing(int key, int index) {
+		int hashCode = -1;
+		final int MOD2 = 7;
+		int key1 = key % MOD;
+		int key2 = (1 + (key % MOD2)) % MOD2;
+		hashCode = (key1 + index*key2) % MOD;
+		return hashCode;
+	}
+
+		/**
 	* This method starts at the spot in the table where the key was deleted
 	* and continues to increment the index until it finds the last element
 	* in the table that has the same hashcode (when the index is set to 0) 
@@ -213,7 +294,7 @@ public class HashTable {
 	* 		
 	* 
 	*/
-	public int searchReplace(int keyDelete, int index) {
+	/*public int searchReplace(int keyDelete, int index) {
 		int origHashCode = -1;
 		int searchHashCode = -1;
 		int keyReplace = -1;
@@ -236,7 +317,7 @@ public class HashTable {
 			} else {
 				return -1;
 			}
-		}
+		}*/
 
 		/*for (int i = index; i < this.table.length; i++) {
 			// compare the hash codes of the original and table[i]
@@ -254,106 +335,6 @@ public class HashTable {
 				searchHashCode = getHashCode(this.table[searchHashCode + 1], 0);
 			}
 			}
-		} */
-
-
-
-	}
-
-	/**
-	* This method calls the search method to find the key in the hash table,
-	* then it sets that spot in the hash table equal to null. Then, it calls
-	* another method to push everything down in the array.
-	* 
-	* @param key
-	* 		the integer value to be deleted
-	* @param index
-	* 		index for generating a new hash code
-	* 
-	*/
-	public int delete(int key, int index) {
-		//int hashCode = -1;
-		int hashCode = -1;
-		int keyDelete = -1;
-		int keyReplace = -1;
-		int aKeyReplace = -1;
-		hashCode = search(key, index);
-
-		/*
-		* if the spot in the table does not equal to the key,
-		* return -1
-		* else find another element in the table with the same hash code
-		* to replace the key to be deleted,
-		* if one is not found
-		*
-		*/
-		if (hashCode == -1) {
-			return -1;
-		} else {
-			keyDelete = this.table[hashCode];
-			this.table[hashCode] = -1;
-			/*aKeyReplace = searchReplace(keyDelete, index);
-			if (aKeyReplace != -1) {
-				keyReplace = aKeyReplace;
-				this.table[hashCode] = keyReplace;
-				return keyDelete;
-			} else {
-				return keyDelete;
-			}*/
-			return keyDelete;
-		}
-	}
-
-	/**
-	* This method sends the key and index to another 
-	* that then calculuates the hash code
-	* 
-	* @param key
-	* 		
-	* @param index
-	* 		the index for the 
-	* @return returns the hashCode
-	*/
-	public int getHashCode(int key, int index) {
-		int hashCode = -1;
-		hashCode = linearProbing(key, index);
-		return hashCode;
-	}
-
-	/**
-	*
-	*
-	*/
-	public int linearProbing(int key, int index) {
-		int hashCode = -1;
-		int key1 = key % MOD;
-		hashCode = (key1 + index) % MOD;
-		return hashCode;
-	}
-
-	/**
-	*
-	*
-	*/
-	public int quadraticProbing(int key, int index) {
-		int hashCode = -1;
-		int c1 = 0;
-		int c2 = 1;
-		int key1 = key % MOD;
-		hashCode = (key1 + c1*(index) + c2*(index * index)) % MOD;
-		return hashCode;
-	}
-
-	/**
-	*
-	*
-	*/
-	public int doubleHashing(int key, int index) {
-		int hashCode = -1;
-		final int MOD2 = 7;
-		int key1 = key % MOD;
-		int key2 = (1 + (key % MOD2)) % MOD2;
-		hashCode = (key1 + index*key2) % MOD;
-		return hashCode;
-	}
+		} 
+	}*/
 }
