@@ -1,5 +1,3 @@
-//package openHashing;
-//import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -26,29 +24,27 @@ public class HashTest {
 		Scanner in = new Scanner(System.in);
 		HashTable hash1 = new HashTable();
 
-		while (!response.equalsIgnoreCase("quit")) {
-			System.out.println("\nPlease choose an option: 'print', 'add', 'search', 'remove', 'quit'");
+		while (!response.equalsIgnoreCase("q")) {
+			System.out.println("\nPlease choose an option: 'p' to print, 'a' to add an element, 's' to search for an element, 'r' to remove an element, 'ex' to run an example, or 'q' to exit the program");
 			response = in.next();
-			if (response.equalsIgnoreCase("print")) {
-				// int[] inputTable= {1,2,3,8,9,47,7,35,5, 100, 21, 99, 4505};
-				// hash1.loadInputTable(inputTable);
-				//print(hash1);
+			if (response.equalsIgnoreCase("p")) {
 				print(hash1);
-			} else if (response.equalsIgnoreCase("add")) {
+			} else if (response.equalsIgnoreCase("a")) {
 				add(hash1, in);
-			} else if (response.equalsIgnoreCase("search")) {
+			} else if (response.equalsIgnoreCase("s")) {
 				search(hash1, in);
-			} else if (response.equalsIgnoreCase("remove")) {
+			} else if (response.equalsIgnoreCase("r")) {
 				remove(hash1, in);
-			} else if (response.equalsIgnoreCase("quit")) {
+			} else if (response.equalsIgnoreCase("ex")) {
+				exampleRun(hash1);
+			} else if (response.equalsIgnoreCase("q")) {
 				System.out.println("Thanks for using the program. GoodBye! :)");
 				in.close();
+				return;
 			} else {
 				System.out.println("Sorry, you have entered invalid input. Please try again.");
 			}
 		}
-		//System.out.println("Thanks for using the program, GoodBye :)");
-		in.close();
 	}
 
 	/**
@@ -130,5 +126,11 @@ public class HashTest {
 		} else {
 			System.out.println("Sorry, you have entered invalid input. Please try again.");
 		}
+	}
+
+	public static void exampleRun(HashTable hash1) {
+		int[] inputTable = {12,23,34,46,2445,12,124,34,64,656,3,248,86,3,15,68,52,1,78,90};
+		hash1.loadHashTable(inputTable);
+		hash1.printTable();
 	}
 }
